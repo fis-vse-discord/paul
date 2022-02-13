@@ -14,5 +14,8 @@ public class MemberVerification
     [Required]
     public ulong MemberId { get; set; }
     
+    [Required]
+    public bool IsRevoked { get; set; } = false;
+    
     public string? AzureId { get; set; } = null;
 }
