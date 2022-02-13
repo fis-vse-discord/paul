@@ -1,7 +1,5 @@
-using PaulBot;
-
 var host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services => { services.AddHostedService<Worker>(); })
+    .ConfigureServices(services => {})
     .Build();
 
 await host.RunAsync();
