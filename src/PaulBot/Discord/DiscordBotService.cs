@@ -61,7 +61,5 @@ public class DiscordBotService : BackgroundService
     {
         var context = new SocketInteractionContext(_client, interaction);
         var result = await _interactions.ExecuteCommandAsync(context, _services);
-        
-        // TODO: Handle result  
     }
 }

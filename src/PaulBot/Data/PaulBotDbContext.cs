@@ -9,5 +9,5 @@ public class PaulBotDbContext : DbContext
     {
     }
 
-    public DbSet<MemberVerification> Verifications = null!;
+    public DbSet<MemberVerification> Verifications { get; set; } = null!;
 }
