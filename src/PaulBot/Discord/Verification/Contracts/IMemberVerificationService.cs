@@ -8,5 +8,5 @@ public interface IMemberVerificationService
 {
     Task<MemberVerification> CreateMemberVerification(ulong memberId);
 
-    Task<MemberVerification> CompleteVerification(ulong memberId, string azureId);
+    Task<MemberVerification> CompleteVerification(ulong memberId, string azureId, IEnumerable<string> azureGroups);
 }
