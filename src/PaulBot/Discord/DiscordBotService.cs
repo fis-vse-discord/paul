@@ -23,8 +23,7 @@ public class DiscordBotService : BackgroundService
         ILogger<DiscordBotService> logger,
         DiscordSocketClient client,
         IOptions<DiscordConfiguration> configuration,
-        IServiceProvider services,
-        IHostEnvironment environment
+        IServiceProvider services
     )
     {
         _logger = logger;

@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using PaulBot.Configuration;
+using PaulBot.Data;
 using PaulBot.Extensions;
 
 var host = Host.CreateDefaultBuilder(args)
@@ -18,6 +20,11 @@ var host = Host.CreateDefaultBuilder(args)
         services.Configure<DiscordConfiguration>(configuration.GetRequiredSection(DiscordConfiguration.Section));
         
         services.AddDiscordBot();
+        services.AddDbContext<PaulBotDbContext>(options => 
+            options
+                .UseNpgsql(configuration.GetConnectionString("Default"))
+                .UseSnakeCaseNamingConvention()
+        );
     })
     .Build();
 
