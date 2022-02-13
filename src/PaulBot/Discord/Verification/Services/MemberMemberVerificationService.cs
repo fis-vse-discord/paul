@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using PaulBot.Data;
 using PaulBot.Discord.Verification.Configuration;
 using PaulBot.Discord.Verification.Contracts;
@@ -11,10 +12,10 @@ public class MemberMemberVerificationService : IMemberVerificationService
 
     private readonly VerificationConfiguration _configuration;
 
-    public MemberMemberVerificationService(PaulBotDbContext context, VerificationConfiguration configuration)
+    public MemberMemberVerificationService(PaulBotDbContext context, IOptions<VerificationConfiguration> configuration)
     {
         _context = context;
-        _configuration = configuration;
+        _configuration = configuration.Value;
     }
 
     public Task<MemberVerification> CreateMemberVerification(ulong memberId)
