@@ -28,7 +28,9 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddDbContext<PaulBotDbContext>(options => 
             options
                 .UseNpgsql(configuration.GetConnectionString("Default"))
-                .UseSnakeCaseNamingConvention()
+                .UseSnakeCaseNamingConvention(),
+            ServiceLifetime.Transient,
+            ServiceLifetime.Transient
         );
     })
     .Build();
