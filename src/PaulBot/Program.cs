@@ -1,3 +1,6 @@
+using PaulBot.Configuration;
+using PaulBot.Extensions;
+
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((context, configuration) =>
     {
@@ -8,9 +11,13 @@ var host = Host.CreateDefaultBuilder(args)
             configuration.AddUserSecrets<Program>(optional: true);
         }
     })
-    .ConfigureServices(services =>
+    .ConfigureServices((context, services) =>
     {
+        var configuration = context.Configuration; 
         
+        services.Configure<DiscordConfiguration>(configuration.GetRequiredSection(DiscordConfiguration.Section));
+        
+        services.AddDiscordBot();
     })
     .Build();
 
