@@ -11,4 +11,6 @@ public class DiscordColor
     public const int Fuchsia = 0xeb459e;
 
     public const int Red = 0xed4245;
+
+    public const int University = 0x009ee0;
 }
