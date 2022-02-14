@@ -33,6 +33,12 @@ public class MemberMemberVerificationService : IMemberVerificationService
         _discordConfiguration = discordConfiguration.Value;
     }
 
+    public async Task<MemberVerification> GetMemberVerificationAsync(Guid id)
+    {
+        return await _context.Verifications.FirstOrDefaultAsync(v => v.Id == id)
+            ?? throw new VerificationNotFoundException();
+    }
+
     public async Task<MemberVerification> CreateMemberVerificationAsync(ulong memberId)
     {
         var verification = await _context.Verifications.FirstOrDefaultAsync(v => v.MemberId == memberId);
