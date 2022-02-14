@@ -26,7 +26,7 @@ public class VerificationInteractionsModule : InteractionModuleBase<SocketIntera
             .Build();
         
         var components = new ComponentBuilder()
-            .WithButton(ButtonBuilder.CreateSecondaryButton("🔑 Verifikace", "verification"))
+            .WithButton(ButtonBuilder.CreateSecondaryButton("🔑 Ověření školního účtu VŠE", "verification"))
             .Build();
 
         var message = await channel.SendMessageAsync(embed: embed, components: components);
@@ -38,5 +38,24 @@ public class VerificationInteractionsModule : InteractionModuleBase<SocketIntera
                 .WithButton(ButtonBuilder.CreateLinkButton("View", message.GetJumpUrl()))
                 .Build()
         );
+    }
+
+    [ComponentInteraction("verification")]
+    public async Task GetVerificationLink()
+    {
+        var verification = await _service.CreateMemberVerificationAsync(Context.User.Id);
+        
+        // TODO: Generate verification link dynamically
+        var link = $"https://localhost:5001/verification/{verification.Id}";
+
+        var embed = new EmbedBuilder()
+            .WithAuthor(Context.User.Username, Context.User.GetAvatarUrl())
+            .Build();
+            
+        var component = new ComponentBuilder()
+            .WithButton(ButtonBuilder.CreateLinkButton("Tvůj unikátní odkaz", link))
+            .Build();
+
+        await Context.Interaction.RespondAsync(ephemeral: true, embed: embed, components: component);
     }
 }
