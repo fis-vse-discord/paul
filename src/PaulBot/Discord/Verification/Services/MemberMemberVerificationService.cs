@@ -33,7 +33,7 @@ public class MemberMemberVerificationService : IMemberVerificationService
         _discordConfiguration = discordConfiguration.Value;
     }
 
-    public async Task<MemberVerification> CreateMemberVerification(ulong memberId)
+    public async Task<MemberVerification> CreateMemberVerificationAsync(ulong memberId)
     {
         var verification = await _context.Verifications.FirstOrDefaultAsync(v => v.MemberId == memberId);
 
@@ -50,7 +50,7 @@ public class MemberMemberVerificationService : IMemberVerificationService
         return created;
     }
 
-    public async Task<MemberVerification> CompleteVerification(ulong memberId, string azureId, IEnumerable<string> azureGroups)
+    public async Task<MemberVerification> CompleteVerificationAsync(ulong memberId, string azureId, IEnumerable<string> azureGroups)
     {
         var verification = await _context.Verifications.FirstOrDefaultAsync(v => v.MemberId == memberId)
                            ?? throw new VerificationNotFoundException();

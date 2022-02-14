@@ -6,7 +6,7 @@ namespace PaulBot.Discord.Verification.Contracts;
 
 public interface IMemberVerificationService
 {
-    Task<MemberVerification> CreateMemberVerification(ulong memberId);
+    Task<MemberVerification> CreateMemberVerificationAsync(ulong memberId);
 
-    Task<MemberVerification> CompleteVerification(ulong memberId, string azureId, IEnumerable<string> azureGroups);
+    Task<MemberVerification> CompleteVerificationAsync(ulong memberId, string azureId, IEnumerable<string> azureGroups);
 }

@@ -9,7 +9,7 @@ public class MemberVerification
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
+    public Guid Id { get; init; } = Guid.NewGuid();
     
     [Required]
     public ulong MemberId { get; set; }
