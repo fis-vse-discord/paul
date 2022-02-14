@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using PaulBot.Discord.Verification.Contracts;
 
 namespace PaulBot.Discord.Verification.Controllers;
 
-[Route("/verification")]
 public class MemberVerificationController : Controller
 {
     private readonly IMemberVerificationService _service;
@@ -16,9 +14,9 @@ public class MemberVerificationController : Controller
     }
 
     [Authorize]
-    [HttpGet("/{id}")]
+    [HttpGet("/verification/{id}")]
     public ActionResult ProcessVerification(ulong id)
     {
-        return NotFound();
+        return Accepted();
     }
 }
