@@ -43,6 +43,8 @@ public class VerificationInteractionsModule : InteractionModuleBase<SocketIntera
     [ComponentInteraction("verification")]
     public async Task GetVerificationLink()
     {
+        await Context.Interaction.DeferAsync();
+            
         var verification = await _service.CreateMemberVerificationAsync(Context.User.Id);
         
         // TODO: Generate verification link dynamically
@@ -50,12 +52,13 @@ public class VerificationInteractionsModule : InteractionModuleBase<SocketIntera
 
         var embed = new EmbedBuilder()
             .WithAuthor(Context.User.Username, Context.User.GetAvatarUrl())
+            .WithDescription(link)
             .Build();
             
         var component = new ComponentBuilder()
             .WithButton(ButtonBuilder.CreateLinkButton("Tvůj unikátní odkaz", link))
             .Build();
 
-        await Context.Interaction.RespondAsync(ephemeral: true, embed: embed, components: component);
+        await Context.Interaction.FollowupAsync(ephemeral: true, embed: embed, components: component);
     }
 }
