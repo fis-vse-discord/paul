@@ -12,8 +12,8 @@ using PaulBot.Data;
 namespace PaulBot.Migrations
 {
     [DbContext(typeof(PaulBotDbContext))]
-    [Migration("20220214104943_ChangeVerificationIdToGuid")]
-    partial class ChangeVerificationIdToGuid
+    [Migration("20220214115220_MemberVerifications")]
+    partial class MemberVerifications
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

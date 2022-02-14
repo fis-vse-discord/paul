@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaulBot.Discord.Verification.Contracts;
+using PaulBot.Discord.Verification.Exceptions;
 
 namespace PaulBot.Discord.Verification.Controllers;
 
@@ -14,9 +15,19 @@ public class MemberVerificationController : Controller
     }
 
     [Authorize]
-    [HttpGet("/verification/{id}")]
-    public ActionResult ProcessVerification(ulong id)
+    [HttpGet("/verification/{id:guid}")]
+    public async Task<ActionResult> ProcessVerification(Guid id)
     {
+        try
+        {
+            var verification = await _service.GetMemberVerificationAsync(id);
+            // TODO: Complete member verification
+        }
+        catch (VerificationNotFoundException)
+        {
+            return NotFound();
+        }
+        
         return Accepted();
     }
 }

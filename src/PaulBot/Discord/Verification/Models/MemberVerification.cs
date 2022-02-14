@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace PaulBot.Discord.Verification.Models;
@@ -8,7 +7,6 @@ namespace PaulBot.Discord.Verification.Models;
 public class MemberVerification
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; init; } = Guid.NewGuid();
     
     [Required]
