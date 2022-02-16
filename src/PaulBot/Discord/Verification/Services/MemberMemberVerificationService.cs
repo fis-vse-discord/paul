@@ -33,12 +33,6 @@ public class MemberMemberVerificationService : IMemberVerificationService
         _discordConfiguration = discordConfiguration.Value;
     }
 
-    public async Task<MemberVerification> GetMemberVerificationAsync(Guid id)
-    {
-        return await _context.Verifications.FirstOrDefaultAsync(v => v.Id == id)
-            ?? throw new VerificationNotFoundException();
-    }
-
     public async Task<MemberVerification> CreateMemberVerificationAsync(ulong memberId)
     {
         var verification = await _context.Verifications.FirstOrDefaultAsync(v => v.MemberId == memberId);
@@ -56,19 +50,19 @@ public class MemberMemberVerificationService : IMemberVerificationService
         return created;
     }
 
-    public async Task<MemberVerification> CompleteVerificationAsync(ulong memberId, string azureId, IEnumerable<string> azureGroups)
+    public async Task<MemberVerification> CompleteVerificationAsync(Guid id, string azureId, IEnumerable<string> azureGroups)
     {
-        var verification = await _context.Verifications.FirstOrDefaultAsync(v => v.MemberId == memberId)
+        var verification = await _context.Verifications.FirstOrDefaultAsync(v => v.Id == id)
                            ?? throw new VerificationNotFoundException();
         
         // If any of the user roles is blocked, halt the verification process
-        if (azureGroups.Any(g => _verificationConfiguration.BlacklistedGroups.Contains(g)))
+        if (azureGroups.Any(g => g == _verificationConfiguration.BlockedGroup))
         {
             throw new BlockedRoleMembershipException();
         }
         
         // If the verification was already used and it belongs to another account
-        if (verification.AzureId != null && verification.AzureId == azureId)
+        if (verification.AzureId != null && verification.AzureId != azureId)
         {
             throw new VerificationAlreadyUsedException();
         }
@@ -79,9 +73,8 @@ public class MemberMemberVerificationService : IMemberVerificationService
             throw new VerificationRevokedException();
         }
 
-        // TODO: Use domain exceptions for handling this
         var guild = _client.GetGuild(_discordConfiguration.GuildId) ?? throw new ApplicationException();
-        var member = guild.GetUser(memberId) ?? throw new ApplicationException();
+        var member = guild.GetUser(verification.MemberId) ?? throw new ApplicationException();
 
         await member.AddRoleAsync(_verificationConfiguration.VerificationRoleId);
 

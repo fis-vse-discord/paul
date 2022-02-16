@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
@@ -32,8 +31,10 @@ builder.Host.ConfigureServices((context, services) =>
         configuration.GetRequiredSection(VerificationConfiguration.Section));
 
     services.AddDiscordBot();
+    services.AddAuthorization();
     services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
         .AddMicrosoftIdentityWebApp(configuration.GetRequiredSection("Azure"));
+
     services.AddControllersWithViews(options =>
     {
         var policy = new AuthorizationPolicyBuilder()
@@ -48,7 +49,7 @@ builder.Host.ConfigureServices((context, services) =>
                 .UseNpgsql(configuration.GetConnectionString("Default"))
                 .UseSnakeCaseNamingConvention(),
         ServiceLifetime.Transient,
-        ServiceLifetime.Transient
+        ServiceLifetime.Singleton
     );
 });
 
@@ -60,5 +61,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// TODO: Fix endpoint mapping
 
 await app.RunAsync();

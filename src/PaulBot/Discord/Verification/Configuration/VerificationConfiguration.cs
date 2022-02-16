@@ -6,5 +6,5 @@ public class VerificationConfiguration
     
     public ulong VerificationRoleId { get; set; }
     
-    public IEnumerable<string> BlacklistedGroups { get; set; } = null!;
+    public string BlockedGroup { get; set; } = null!;
 }
