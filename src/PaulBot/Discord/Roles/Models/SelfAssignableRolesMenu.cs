@@ -21,9 +21,9 @@ public class SelfAssignableRolesMenu
     /// Title of the role menu
     /// </summary>
     public string Title { get; set; } = null!;
-    
+
     /// <summary>
     /// Roles mapped to this self assignable role menu
     /// </summary>
-    public IEnumerable<SelfAssignableRole> Roles { get; set; } = new List<SelfAssignableRole>();
+    public List<SelfAssignableRole> Roles { get; set; } = new();
 }
