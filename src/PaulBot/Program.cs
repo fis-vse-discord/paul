@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using PaulBot.Configuration;
 using PaulBot.Data;
+using PaulBot.Discord.Roles.Contract;
+using PaulBot.Discord.Roles.Services;
 using PaulBot.Discord.Subjects.Configuration;
 using PaulBot.Discord.Subjects.Contract;
 using PaulBot.Discord.Subjects.Services;
@@ -37,6 +39,7 @@ builder.Host.ConfigureServices((context, services) =>
     
     services.AddTransient<IMemberVerificationService, MemberMemberVerificationService>();
     services.AddTransient<ISubjectsService, SubjectsService>();
+    services.AddTransient<ISelfAssignableRolesService, SelfAssignableRolesService>();
     
     services.AddAuthorization();
     services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
