@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PaulBot.Discord.Verification.Contracts;
+using PaulBot.Discord.Verification.Contract;
 
 namespace PaulBot.Controllers;
 

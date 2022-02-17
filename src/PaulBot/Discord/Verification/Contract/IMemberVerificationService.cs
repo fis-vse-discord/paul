@@ -1,8 +1,6 @@
-using Discord;
-using Discord.WebSocket;
 using PaulBot.Discord.Verification.Models;
 
-namespace PaulBot.Discord.Verification.Contracts;
+namespace PaulBot.Discord.Verification.Contract;
 
 public interface IMemberVerificationService
 {

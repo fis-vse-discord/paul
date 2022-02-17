@@ -1,4 +1,4 @@
-using PaulBot.Discord.Subjects.Contracts;
+using PaulBot.Discord.Subjects.Contract;
 using PaulBot.Discord.Subjects.Models;
 
 namespace PaulBot.Discord.Subjects.Services;

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using PaulBot.Configuration;
 using PaulBot.Data;
 using PaulBot.Discord.Verification.Configuration;
-using PaulBot.Discord.Verification.Contracts;
+using PaulBot.Discord.Verification.Contract;
 using PaulBot.Discord.Verification.Exceptions;
 using PaulBot.Discord.Verification.Models;
 

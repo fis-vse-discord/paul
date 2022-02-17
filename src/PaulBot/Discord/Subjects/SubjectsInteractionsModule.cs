@@ -1,6 +1,6 @@
 using Discord;
 using Discord.Interactions;
-using PaulBot.Discord.Subjects.Contracts;
+using PaulBot.Discord.Subjects.Contract;
 using PaulBot.Extensions;
 
 namespace PaulBot.Discord.Subjects;

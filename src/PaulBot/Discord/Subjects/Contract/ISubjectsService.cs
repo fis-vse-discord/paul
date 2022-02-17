@@ -1,6 +1,6 @@
 using PaulBot.Discord.Subjects.Models;
 
-namespace PaulBot.Discord.Subjects.Contracts;
+namespace PaulBot.Discord.Subjects.Contract;
 
 public interface ISubjectsService
 {

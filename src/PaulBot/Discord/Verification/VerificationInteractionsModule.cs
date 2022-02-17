@@ -1,7 +1,7 @@
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
-using PaulBot.Discord.Verification.Contracts;
+using PaulBot.Discord.Verification.Contract;
 
 namespace PaulBot.Discord.Verification;
 

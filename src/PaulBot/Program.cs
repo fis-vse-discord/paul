@@ -6,10 +6,10 @@ using Microsoft.Identity.Web;
 using PaulBot.Configuration;
 using PaulBot.Data;
 using PaulBot.Discord.Subjects.Configuration;
-using PaulBot.Discord.Subjects.Contracts;
+using PaulBot.Discord.Subjects.Contract;
 using PaulBot.Discord.Subjects.Services;
 using PaulBot.Discord.Verification.Configuration;
-using PaulBot.Discord.Verification.Contracts;
+using PaulBot.Discord.Verification.Contract;
 using PaulBot.Discord.Verification.Services;
 using PaulBot.Extensions;
 
