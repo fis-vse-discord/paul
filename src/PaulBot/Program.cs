@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using PaulBot.Configuration;
 using PaulBot.Data;
+using PaulBot.Discord.Subjects.Contracts;
+using PaulBot.Discord.Subjects.Services;
 using PaulBot.Discord.Verification.Configuration;
 using PaulBot.Discord.Verification.Contracts;
 using PaulBot.Discord.Verification.Services;
@@ -31,6 +33,10 @@ builder.Host.ConfigureServices((context, services) =>
         configuration.GetRequiredSection(VerificationConfiguration.Section));
 
     services.AddDiscordBot();
+    
+    services.AddTransient<IMemberVerificationService, MemberMemberVerificationService>();
+    services.AddTransient<ISubjectsService, SubjectsService>();
+    
     services.AddAuthorization();
     services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
         .AddMicrosoftIdentityWebApp(configuration.GetRequiredSection("Azure"));
@@ -43,7 +49,6 @@ builder.Host.ConfigureServices((context, services) =>
 
         options.Filters.Add(new AuthorizeFilter(policy));
     });
-    services.AddTransient<IMemberVerificationService, MemberMemberVerificationService>();
     services.AddDbContext<PaulBotDbContext>(options =>
             options
                 .UseNpgsql(configuration.GetConnectionString("Default"))
