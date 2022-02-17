@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using PaulBot.Configuration;
 using PaulBot.Data;
+using PaulBot.Discord.Subjects.Configuration;
 using PaulBot.Discord.Subjects.Contracts;
 using PaulBot.Discord.Subjects.Services;
 using PaulBot.Discord.Verification.Configuration;
@@ -29,8 +30,8 @@ builder.Host.ConfigureServices((context, services) =>
     var configuration = context.Configuration;
 
     services.Configure<DiscordConfiguration>(configuration.GetRequiredSection(DiscordConfiguration.Section));
-    services.Configure<VerificationConfiguration>(
-        configuration.GetRequiredSection(VerificationConfiguration.Section));
+    services.Configure<VerificationConfiguration>(configuration.GetRequiredSection(VerificationConfiguration.Section));
+    services.Configure<SubjectsConfiguration>(configuration.GetRequiredSection(SubjectsConfiguration.Section));
 
     services.AddDiscordBot();
     
