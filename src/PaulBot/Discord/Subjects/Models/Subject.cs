@@ -19,14 +19,14 @@ public class Subject
     /// Name of the subject (eg. "Programming")
     /// </summary>
     public string Name { get; init; }
-    
-    /// <summary>
-    /// ID of the mapped Discord channel
-    /// </summary>
-    public ulong ChannelId { get; set; }
-    
+
     /// <summary>
     /// ID of the mapped Discord role
     /// </summary>
     public ulong RoleId { get; set; }
+
+    /// <summary>
+    /// ID of the mapped Discord text channel
+    /// </summary>
+    public ulong ChannelId { get; set; }
 }

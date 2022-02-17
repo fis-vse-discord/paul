@@ -26,6 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Discord\Subjects\Configuration" />
       <Folder Include="Discord\Verification\Security" />
     </ItemGroup>
 </Project>
