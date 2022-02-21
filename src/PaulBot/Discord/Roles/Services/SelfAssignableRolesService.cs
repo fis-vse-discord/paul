@@ -38,6 +38,8 @@ public class SelfAssignableRolesService : ISelfAssignableRolesService
 
         await _context.SelfRoleMenus.AddAsync(menu);
         await _context.SaveChangesAsync();
+        
+        await UpdateRoleMenuEmbedAsync(menu);
 
         return menu;
     }
@@ -111,9 +113,16 @@ public class SelfAssignableRolesService : ISelfAssignableRolesService
     {
         var guild = _client.GetGuild(_configuration.GuildId);
         var channel = guild.GetTextChannel(menu.ChannelId);
-        var message = await channel.GetMessageAsync(menu.MessageId) as SocketUserMessage;
+        var message = await channel.GetMessageAsync(menu.MessageId) as IUserMessage;
         
         // Create a component button for every self-assignable role
+        var embed = new EmbedBuilder()
+            .WithColor(DiscordColor.Primary)
+            .WithTitle(menu.Title)
+            .WithDescription("Pro získání nebo odebrání role klikni na tlačítko pod zprávou.")
+            .WithCurrentTimestamp()
+            .WithFooter($"role menu id: {menu.Id}");
+        
         var components = menu.Roles
             .Select(s => guild.Roles.First(r => r.Id == s.RoleId))
             .Select(r => (r.Id, r.Name))
@@ -121,6 +130,10 @@ public class SelfAssignableRolesService : ISelfAssignableRolesService
             .Aggregate(new ComponentBuilder(), (builder, role) =>
                 builder.WithButton(ButtonBuilder.CreateSecondaryButton(role.Name, $"selfrole:{role.Id}")));
 
-        await message!.ModifyAsync(m => m.Components = components.Build());
+        await message!.ModifyAsync(m =>
+        {
+            m.Embed = embed.Build();
+            m.Components = components.Build();
+        });
     }
 }
